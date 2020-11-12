@@ -1,24 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import MyHeader from './components/Header';
+// import Content from './components/content';
+import { Routes, Route } from 'react-router-dom';
+import About from './components/About';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
+import Product from './components/Product';
+// import ProductDetail from './components/ProductDetail';
+// import ProductHome from './components/ProductHome';
+import CartList from './components/CartList';
 import './App.css';
+import 'antd/dist/antd.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MyHeader />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={< MyHome />} /> */}
+        <Route path="products" element={<Product />} />
+        {/* <Route path="products/:slug" element={< ProductDetail />} /> */}
+        { /* <Route path=":productId" element={<ProductDetail />} /> */}
+        <Route path="about" element={< About />} />
+        <Route path="cartlist" element={< CartList />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
