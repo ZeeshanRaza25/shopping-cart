@@ -2,25 +2,42 @@ name: Zee Shopping Cart
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+   CI: False
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
+      # Install NodeJS
       - name: Install Node.js
         uses: actions/setup-node@v2-beta
         with:
           node-version: 12
-      - run: npm install
-
-      - name: Update caniuse-lite browserslist
-        run: npm update caniuse-lite browserslist
-
+      # Install Yarn      
+      - name: Install Yarn
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install # will run `yarn install` command      
+      # Creating production build     
       - name: Build React App
-        run: CI=false npm run build
-    
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build # will run `yarn build` command
+      # Install Firebase
+      - name: Install Firebase
+        run: npm install -g firebase          
+      # Install Surge      
       - name: Install Surge
         run: npm install -g surge
-      - name: Run surge
-        run: surge ./build zee-redux-basket.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+      # Run Tests.
+      - name: Run tests.
+        run: yarn test  
+      # Run Surge
+      - name: Run Surge
+        run: surge ./build/ http://zee-shopping-basket.surge.sh/ --token ${{ secrets.SURGE_TOKEN }}  
