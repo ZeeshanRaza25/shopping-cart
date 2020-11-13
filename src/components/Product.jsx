@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
 import { add } from '../store/productSlice';
-import data from "../store/state";
+// import data from "../store/state";
 // import RatingComponent from './Rating';
 
 import { Row, Col, Card, Button } from 'antd';
@@ -11,23 +11,17 @@ const { Meta } = Card;
 
 export default function Product() {
     const dispatch = useDispatch();
-    // console.log("dispatch", dispatch);
-    // const abc = useSelector((state) => {
-    //     return state;
-    // });
-    console.log(data);
-
-    const handleClick = (item) => {
-        console.log(item);
-        dispatch(add(item))
-    }
+    const data = useSelector((state) => {
+        // console.log(state.productReducer);
+        return state.productReducer;
+    });
 
     return (
         <div style={{ margin: `5%` }}>
-            {/* {console.log("data", data)} */}
             <Row justify="center">
                 {data.length > 0 ? <>
                     {Object.entries(data).map((itm) => {
+                        // console.log("data", itm)
                         // let [{ imgUrl, name, id, price }] = itm;
                         let [slug, { imgUrl, name, id, price }] = itm;
                         return <Col xs={24} sm={12} md={8} key={id}>
@@ -54,7 +48,8 @@ export default function Product() {
                                 />
                                 {/* <RatingComponent rating={rating} /> */}
                                 <Button ghost size="large" type="primary" block
-                                    onClick={() => handleClick(add({ imgUrl, name, id, price, quantity: 1 }))}
+                                    // onClick={() => handleClick(add({ imgUrl, name, id, price, quantity: 1 }))}
+                                    onClick={() => dispatch(add({ id: id }))}
                                 >
                                     Add to cart
                                 </Button>

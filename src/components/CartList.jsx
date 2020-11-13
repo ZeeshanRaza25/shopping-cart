@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { remove } from '../store/productSlice';
+import { clear, inc, remove } from '../store/productSlice';
 
 import { List, Avatar, Skeleton, Row, Col } from 'antd';
 import PlusIcon from '@ant-design/icons/PlusSquareTwoTone';
@@ -10,13 +10,10 @@ import DeleteTwoTone from '@ant-design/icons/DeleteTwoTone';
 export default function CartList() {
     const dispatch = useDispatch();
     const items = useSelector((state) => {
-        // console.log("items", state);
-        return state.productReducer.selectedProduct;
+        // console.log("items", state.productReducer);
+        return state.productReducer;
     })
-
-    const handleClick = (item) => {
-        dispatch(remove(item))
-    }
+    let totalPrice = items.reduce((total, pro) => total + (pro.price) * pro.quantity, 0)
 
     return (
         <Row align="top" justify="center">
@@ -33,21 +30,29 @@ export default function CartList() {
                         <div style={{
                             textAlign: 'end'
                         }}>
-                            Total: $ <b>{4}</b>
+                            Total: $ <b>{totalPrice}</b>
                         </div>
                     }
-                    dataSource={items}
+                    dataSource={items.filter(product => product.added)}
                     renderItem={item => (
                         <List.Item
                             key={item.id}
                             actions={[
-                                <PlusIcon style={{
-                                    fontSize: '18px', color: '#08c'
-                                }} />,
-                                <MinusIcon style={{
-                                    fontSize: '18px', color: '#08c'
-                                }} />,
-                                <DeleteTwoTone onClick={() => dispatch(remove({ id: item.id }))} />
+                                item.quantity > 0 ?
+                                    <MinusIcon
+                                        onClick={() => dispatch(remove(item))}
+                                        style={{
+                                            fontSize: '18px', color: '#08c'
+                                        }}
+                                    />
+                                    : null
+                                ,
+                                < PlusIcon
+                                    onClick={() => dispatch(inc(item))}
+                                    style={{
+                                        fontSize: '18px', color: '#08c'
+                                    }} />,
+                                <DeleteTwoTone onClick={() => dispatch(clear(item))} />
                             ]}
                         >
                             <Skeleton avatar title={false} loading={item.loading} active>
@@ -64,7 +69,7 @@ export default function CartList() {
                     )}
                 />
             </Col>
-        </Row>
+        </Row >
     );
 }
 

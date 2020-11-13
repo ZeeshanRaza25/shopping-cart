@@ -11,11 +11,10 @@ const { Meta } = Card;
 const Basket = () => {
   // const dispatch = useDispatch();
   const products = useSelector((state) => {
-    console.log("items", state.productReducer.items[0]);
-    return state.productReducer.items;
+    // console.log("items", state);
+    return state;
   });
-  const item = products[0];
-  console.log(item)
+  
   return (
     <div>
       <p>
