@@ -1,22 +1,24 @@
-// export interface ProductItem {
-//     id: Number
-//     name: String
-//     price: Number
-//     type: String
-//     rating: Number
-//     quantity: Number
-//     // description: string
-//     imgUrl: string
-//     img1: string
-//     img2: string
-//     img3: string
-//     added?: boolean
-// }
+export interface ProductItem {
+    loading?: boolean | undefined;
+    id: number
+    name: string
+    price: number
+    type: string
+    rating: number
+    quantity: number
+    // description: string
+    imgUrl: string
+    img1: string
+    img2: string
+    img3: string
+    added?: boolean
+    productReducer?: {}
+}
 
-const INITIAL_STATE = [{
+const INITIAL_STATE: ProductItem[] = [{
     id: 1,
     name: "Air Max 90",
-    price: 1799,
+    price: 99,
     type: 'Women',
     rating: 2,
     quantity: 0,
@@ -29,7 +31,7 @@ const INITIAL_STATE = [{
 {
     name: "Air Max 95 Essential",
     id: 2,
-    price: 1899,
+    price: 89,
     type: 'Men',
     rating: 4,
     quantity: 0,
@@ -42,7 +44,7 @@ const INITIAL_STATE = [{
 {
     name: "Jordan 5 Retro",
     id: 3,
-    price: 1999,
+    price: 119,
     type: 'Men',
     rating: 5,
     quantity: 0,
@@ -55,7 +57,7 @@ const INITIAL_STATE = [{
 {
     name: "Nike Air Max Plus III",
     id: 4,
-    price: 1699,
+    price: 109,
     type: 'Men',
     rating: 4,
     quantity: 0,
@@ -68,7 +70,7 @@ const INITIAL_STATE = [{
 {
     name: "Air Zoom",
     id: 6,
-    price: 1599,
+    price: 69,
     type: 'Men',
     rating: 3,
     quantity: 0,
@@ -82,7 +84,7 @@ const INITIAL_STATE = [{
 {
     name: "Zoom Fly 3",
     id: 7,
-    price: 1399,
+    price: 89,
     type: 'Men',
     rating: 4,
     quantity: 0,
@@ -95,7 +97,7 @@ const INITIAL_STATE = [{
 {
     name: "Air Zoom Infinity Tour",
     id: 8,
-    price: 1599,
+    price: 99,
     type: 'Men',
     rating: 3,
     quantity: 0,
@@ -108,7 +110,7 @@ const INITIAL_STATE = [{
 {
     name: "Air Max 95 ERA",
     id: 9,
-    price: 1499,
+    price: 79,
     type: 'Men',
     rating: 4,
     quantity: 0,
@@ -121,7 +123,7 @@ const INITIAL_STATE = [{
 {
     name: "Vintage Premium",
     id: 10,
-    price: 1999,
+    price: 109,
     type: 'Men',
     rating: 5,
     quantity: 0,

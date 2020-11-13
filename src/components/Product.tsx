@@ -1,8 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
-
+import { ProductItem } from '../store/state';
 import { add } from '../store/productSlice';
+import { store } from '../store/store';
 // import data from "../store/state";
 // import RatingComponent from './Rating';
 
@@ -10,11 +11,7 @@ import { Row, Col, Card, Button } from 'antd';
 const { Meta } = Card;
 
 export default function Product() {
-    const dispatch = useDispatch();
-    const data = useSelector((state) => {
-        // console.log(state.productReducer);
-        return state.productReducer;
-    });
+    const data = useSelector((state: ProductItem[]) => state);
 
     return (
         <div style={{ margin: `5%` }}>
@@ -22,8 +19,8 @@ export default function Product() {
                 {data.length > 0 ? <>
                     {Object.entries(data).map((itm) => {
                         // console.log("data", itm)
-                        // let [{ imgUrl, name, id, price }] = itm;
-                        let [slug, { imgUrl, name, id, price }] = itm;
+                        // let [slug, { imgUrl, name, id, price }] = itm
+                        let [,{ imgUrl, name, id, price }] = itm
                         return <Col xs={24} sm={12} md={8} key={id}>
                             {/* <Link className="product-link" to={`/products/${slug}`} style={{ textDecoration: 'none', color: 'white' }}> */}
                             <Card
@@ -49,7 +46,7 @@ export default function Product() {
                                 {/* <RatingComponent rating={rating} /> */}
                                 <Button ghost size="large" type="primary" block
                                     // onClick={() => handleClick(add({ imgUrl, name, id, price, quantity: 1 }))}
-                                    onClick={() => dispatch(add({ id: id }))}
+                                    onClick={() => store.dispatch(add({ id: id }))}
                                 >
                                     Add to cart
                                 </Button>

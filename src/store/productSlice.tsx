@@ -1,5 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 import INITIAL_STATE from "./state"
+// import ProductItem from './state';
+type item = {
+    id: Number,
+    name: String,
+    price: Number,
+    type: String,
+    rating: Number,
+    quantity: Number,
+    imgUrl: string,
+    img1: string,
+    img2: string,
+    img3: string,
+    added?: boolean,
+}
 
 const basketSlice = createSlice({
     name: "basket",
@@ -8,14 +22,15 @@ const basketSlice = createSlice({
         add: (state, action) => {
             let a = JSON.parse((JSON.stringify(state, undefined, 2))); // here a = state
             // console.log(action.payload.id)
-            return a.map(item => {
+            return a.map((item: item) => {
+                // console.log(item)
                 if (item.id !== action.payload.id) {
                     return item
                 }
                 return {
                     ...item,
                     added: true,
-                    quantity: item.quantity + 1
+                    quantity: +item.quantity + 1
                 }
             })
         },
@@ -23,7 +38,7 @@ const basketSlice = createSlice({
         remove: (state, action) => {
             let a = JSON.parse((JSON.stringify(state, undefined, 2))); // here a = state
 
-            return a.map(item => {
+            return a.map((item: item) => {
                 if (item.id !== action.payload.id) {
                     return item
                 }
@@ -36,7 +51,7 @@ const basketSlice = createSlice({
                 }
                 return {
                     ...item,
-                    quantity: item.quantity - 1
+                    quantity: +item.quantity - 1
                 }
 
             })
@@ -45,7 +60,7 @@ const basketSlice = createSlice({
         clear: (state, action) => {
             let a = JSON.parse((JSON.stringify(state, undefined, 2))); // here a = state
 
-            return a.map(item => {
+            return a.map((item: item) => {
                 if (item.id !== action.payload.id) {
                     return item
                 }
@@ -61,14 +76,14 @@ const basketSlice = createSlice({
         inc: (state, action) => {
             let a = JSON.parse((JSON.stringify(state, undefined, 2))); // here a = state
 
-            return a.map(item => {
+            return a.map((item: item) => {
                 if (item.id !== action.payload.id) {
                     return item
                 }
 
                 return {
                     ...item,
-                    quantity: item.quantity + 1
+                    quantity: +item.quantity + 1
                 }
             })
         },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clear, inc, remove } from '../store/productSlice';
+import { ProductItem } from '../store/state';
 
 import { List, Avatar, Skeleton, Row, Col } from 'antd';
 import PlusIcon from '@ant-design/icons/PlusSquareTwoTone';
@@ -9,10 +10,8 @@ import DeleteTwoTone from '@ant-design/icons/DeleteTwoTone';
 
 export default function CartList() {
     const dispatch = useDispatch();
-    const items = useSelector((state) => {
-        // console.log("items", state.productReducer);
-        return state.productReducer;
-    })
+    const items = useSelector((state: ProductItem[]) => state)
+
     let totalPrice = items.reduce((total, pro) => total + (pro.price) * pro.quantity, 0)
 
     return (

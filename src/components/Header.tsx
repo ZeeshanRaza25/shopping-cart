@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ProductItem } from '../store/state';
 
 import { Row, Col, Badge } from 'antd';
 import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined';
@@ -8,10 +9,9 @@ import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined';
 const style = { background: 'white', color: 'black', padding: '2px 0', fontSize: '14' };
 
 export default function MyHeader() {
-  const products = useSelector((state) => {
-    return state.productReducer;
-  })
-  let numberOfItems = products.filter(product => product.added).length
+  const products = useSelector((state: ProductItem[]) => state)
+  // console.log(products)
+  let numberOfItems = Object.values(products).filter(products => products.added).length
 
   return (
     <>
@@ -50,7 +50,7 @@ export default function MyHeader() {
             fontSize: 25
           }} >
             {
-              numberOfItems === "undefined" ?
+              numberOfItems === undefined ?
                 <Badge count={0} offset={[5, 1]} showZero size="default" >
                   <ShoppingCartOutlined style={{ fontSize: 23, color: 'black', fontWeight: 'lighter' }} />
                 </Badge>
